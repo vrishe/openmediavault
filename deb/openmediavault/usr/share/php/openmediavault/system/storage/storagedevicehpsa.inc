@@ -36,9 +36,9 @@ class StorageDeviceHPSA extends StorageDeviceSD {
 	 */
 	public function getSmartDeviceType() {
 		// Note, we need to distinguish between RAID and HBA mode here.
-		if (TRUE === $this->isRaid()) {
-			return parent::getSmartDeviceType();
-		}
+		// if (TRUE === $this->isRaid()) {
+		// 	return parent::getSmartDeviceType();
+		// }
 		//
 		// $ hpssacli ctrl slot=0 pd all show detail
 		// ...
@@ -58,7 +58,7 @@ class StorageDeviceHPSA extends StorageDeviceSD {
 		// range from 0 to 15 inclusive) denotes which disk on the
 		// controller is monitored.
 		$hctl = $this->getHCTL();
-		return sprintf("cciss,%d", $hctl['target'] - 1);
+		return sprintf("cciss,%d", $hctl['lun']);
 	}
 
 	/**
